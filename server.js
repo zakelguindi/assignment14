@@ -96,7 +96,7 @@ app.post("/api/nbateams", (req, res) => {
 const validateTeam = (team) => {
   const schema = Joi.object({
     _id: Joi.allow(""), 
-    name: Joi.string().min(3).required(), 
+    name: Joi.allow(""), 
     city: Joi.allow(""), 
     arena: Joi.allow(""), 
     bestPlayer: Joi.allow(""), 

@@ -13,7 +13,7 @@ const showTeams = async () => {
 
   TeamsJSON.forEach((team) => {
     const section = document.createElement("section"); 
-    section.classList.add("club"); 
+    section.classList.add("team"); 
     teamsDiv.append(section); 
 
     const name = document.createElement("h1"); 
@@ -86,6 +86,8 @@ const addEditTeam = async(e) => {
   const form = document.getElementById("add-edit-team-form"); 
   const formData = new FormData(form); 
   let response; 
+
+  console.log("hello!"); 
   
   if(form._id.value == -1) {
     formData.delete("_id"); 
@@ -111,7 +113,7 @@ const addEditTeam = async(e) => {
 };
 
 const getStarting5 = () => {
-  const inputs = document.querySelector("#player-boxes input");
+  const inputs = document.querySelectorAll("#player-boxes input");
   let players = []; 
 
   inputs.forEach((input) => {
@@ -143,4 +145,12 @@ const addPlayer = (e) => {
   section.append(input); 
 }
 
-window.onload = () => showTeams(); 
+window.onload = () => {
+  showTeams();
+  document.getElementById("add-link").onclick = showHideAdd; 
+  document.getElementById("add-edit-team-form").onsubmit = addEditTeam; 
+  // document.querySelector(".close").onclick = () => {
+
+  // }
+  document.getElementById("add-player").onclick = addPlayer; 
+} 

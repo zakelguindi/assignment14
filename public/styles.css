@@ -18,3 +18,36 @@ h1 {
   font-size: 40pt;
   text-decoration: underline;
 }
+
+.team {
+  padding: 10px; 
+  margin: 10px; 
+  background: lightblue; 
+  border-radius: 5px; 
+}
+
+.dialog {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.transparent {
+  opacity: 0;
+}
+
+#add-player {
+  color: blue; 
+  font-size: 0.75em; 
+  text-align: right; 
+}
+
+#players-p input {
+  margin-top: 5px; 
+}
