@@ -70,15 +70,77 @@ const showTeams = async () => {
   });
 };
 
+
+
 const getTeams = async() => {
   try {
-    // return (await fetch("/api/nbateams")).json();
     return (await fetch("https://assignment14-242.onrender.com/api/nbateams")).json();
-    // return (await fetch("http://localhost:3000/api/nbateams"));
   } catch(error) {
     console.log("error retrieving render json"); 
     return ""; 
   }
 };
+
+const addEditTeam = async(e) => {
+  e.preventDefault(); 
+  const form = document.getElementById("add-edit-team-form"); 
+  const formData = new FormData(form); 
+  let response; 
+  
+  if(form._id.value == -1) {
+    formData.delete("_id"); 
+    formData.append("starting5", getStarting5());
+
+    console.log(...formData);
+
+    response = await fetch("/api/nbateams", {
+      method: "POST", 
+      body: formData
+    });
+  }
+
+  //if here- pull is successful 
+  if(response.status != 200) {
+    console.log("Error posting data"); 
+  }
+
+  response = await response.json(); 
+  resetForm(); 
+  document.querySelector(".dialog").classList.add("transparent"); 
+  showTeams(); 
+};
+
+const getStarting5 = () => {
+  const inputs = document.querySelector("#player-boxes input");
+  let players = []; 
+
+  inputs.forEach((input) => {
+    players.push(input.value); 
+  });
+
+  return players; 
+};
+
+const ResetForm = () => {
+  const form = document.getElementById("add-edit-team-form"); 
+  form.reset(); 
+  form._id = "-1"; 
+  document.getElementById("player-boxes").innerHTML = ""; 
+};
+
+const showHideAdd = (e) => {
+  e.preventDefault(); 
+  document.querySelector(".dialog").classList.remove("transparent"); 
+  document.getElementById("add-edit-title").innerHTML = "Add Team"; 
+  resetForm(); 
+};
+
+const addPlayer = (e) => {
+  e.preventDefault(); 
+  const section = document.getElementById("player-boxes"); 
+  const input = document.createElement("input"); 
+  input.type = "text"; 
+  section.append(input); 
+}
 
 window.onload = () => showTeams(); 

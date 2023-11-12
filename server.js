@@ -1,6 +1,13 @@
 const express = require("express"); 
 const app = express(); 
+const Joi = require("joi"); 
+const multer = require("multer"); 
 app.use(express.static("public")); 
+app.use(express.json()); 
+const cors = require("cors"); 
+app.use(cors()); 
+
+// const upload = multer({ dest: __dirname + "/public/images"});
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
@@ -59,6 +66,45 @@ app.get("/api/nbateams", (req, res) => {
   res.json(nbateams); 
 
 });
+
+app.get("/api/nbateams", (req, res) => {
+  res.send(nbateams); 
+});
+
+app.post("/api/nbateams", (req, res) => {
+  const result = validateTeam(req.body); 
+  
+  if(result.error) {
+    res.status(400).send(result.error.details[0].message);
+    return;
+  }
+
+  const team = {
+    _id: nbateams.length + 1,
+    name: req.body.name,
+    city: req.body.city, 
+    arena: req.body.arena,
+    bestPlayer: req.body.bestPlayer, 
+    titlesWon: req.body.titlesWon, 
+    starting5: req.body.starting5.split(",")
+  }
+
+  nbateams.push(team); 
+  res.send(nbateams); 
+});
+
+const validateTeam = (team) => {
+  const schema = Joi.object({
+    _id: Joi.allow(""), 
+    name: Joi.string().min(3).required(), 
+    city: Joi.allow(""), 
+    arena: Joi.allow(""), 
+    bestPlayer: Joi.allow(""), 
+    titlesWon: Joi.allow("")
+  });
+
+  return schema.validate(team); 
+};
 
 app.listen(3000, () => {
   console.log("listening...");
