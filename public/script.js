@@ -1,8 +1,8 @@
 
 
-const showTeams = async() => {
-  const TeamsJSON = await getTeams(); 
-  const teamsDiv = document.getElementById("nba-teams-div"); 
+const showTeams = async () => {
+  let TeamsJSON = await getTeams(); 
+  let teamsDiv = document.getElementById("nba-teams-div"); 
 
   if(TeamsJSON == "") {
     console.log("Invalid load of JSON"); 
@@ -26,7 +26,7 @@ const showTeams = async() => {
     section.append(city);
 
     const arena = document.createElement("p"); 
-    arena.innerHTML = "Arena Name: "+team.stadiumName; 
+    arena.innerHTML = "Arena Name: "+team.arena; 
     section.append(arena); 
 
     const bestPlayer = document.createElement("p"); 
@@ -65,11 +65,20 @@ const showTeams = async() => {
   startersDiv.classList.add("starting5list"); 
   section.append(startersDiv); 
 
+  return section;
+
   });
 };
 
 const getTeams = async() => {
   try {
-    return 
+    // return (await fetch("/api/nbateams")).json();
+    return (await fetch("https://assignment14-242.onrender.com/api/nbateams")).json();
+    // return (await fetch("http://localhost:3000/api/nbateams"));
+  } catch(error) {
+    console.log("error retrieving render json"); 
+    return ""; 
   }
-}
+};
+
+window.onload = () => showTeams(); 
