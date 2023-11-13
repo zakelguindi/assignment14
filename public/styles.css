@@ -19,6 +19,11 @@ h1 {
   text-decoration: underline;
 }
 
+.columns {
+  display: flex; 
+  flex-wrap: wrap; 
+}
+
 .team {
   padding: 10px; 
   margin: 10px; 
@@ -34,6 +39,21 @@ h1 {
   width: 100%;
 }
 
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 0px 5px;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .hidden {
   display: none;
 }
@@ -41,6 +61,14 @@ h1 {
 .transparent {
   opacity: 0;
 }
+
+
+#displayTeam {
+  background-color: rgb(189, 173, 173); 
+  padding: 10px; 
+  width: 25%; 
+}
+
 
 #add-player {
   color: blue; 
